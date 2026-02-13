@@ -32,6 +32,8 @@ from agents.config.prompts import load_prompts, PromptAccessor
 from generators.json_generator import JSONGenerator
 from generators.search_indexer import SearchIndexer
 from generators.feed_generator import FeedGenerator
+from generators.specialized_reports import SpecializedReportGenerator
+from generators.gartner_reports import GartnerReportGenerator
 
 logging.basicConfig(
     level=logging.INFO,
@@ -153,6 +155,29 @@ async def run_pipeline(config_dir: str, data_dir: str, web_dir: str, target_date
 
         search_indexer = SearchIndexer(web_dir, rolling_window_days=30)
         search_indexer.update_index(result.to_dict())
+
+        # Generate specialized reports (Vibe Coding, Humanoid Robots, Physical AI)
+        logger.info("=" * 60)
+        logger.info("PHASE 8: SPECIALIZED REPORTS GENERATION")
+        logger.info("=" * 60)
+
+        specialized_generator = SpecializedReportGenerator(web_dir)
+        report_result = specialized_generator.generate_reports(result.date)
+        logger.info(f"Generated specialized reports: {report_result.get('generated', [])}")
+
+        # Generate Gartner-style strategic reports (analyst-level analysis)
+        logger.info("=" * 60)
+        logger.info("PHASE 9: GARTNER-STYLE STRATEGIC REPORTS")
+        logger.info("=" * 60)
+
+        # Get LLM client from orchestrator for deep analysis
+        llm_client = getattr(orchestrator, 'async_client', None)
+        gartner_generator = GartnerReportGenerator(web_dir, llm_client=llm_client)
+        gartner_result = gartner_generator.generate_gartner_report(
+            result.date, 
+            use_llm=(llm_client is not None)
+        )
+        logger.info(f"Generated Gartner reports: {gartner_result.get('generated', [])}")
 
         # Complete
         end_time = datetime.now()

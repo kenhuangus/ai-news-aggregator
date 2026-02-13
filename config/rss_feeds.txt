@@ -12,3 +12,8 @@ https://blog.langchain.dev/rss/
 https://every.to/chain-of-thought/feed.xml
 https://lastweekin.ai/feed
 https://www.latent.space/feed
+# Robotics, Humanoid & Physical AI feeds
+https://spectrum.ieee.org/automaton/rss.xml
+https://www.therobotreport.com/feed/
+https://www.roboticsbusinessreview.com/feed/
+https://techxplore.com/rssfeedsphp/topic/robotics.xml

@@ -72,7 +72,7 @@ analysis:
 
     # Available variables: ${items_context}, ${example_id}
     filter: |
-      You are filtering news articles for a FRONTIER AI newsletter.
+      You are filtering news articles for a FRONTIER AI newsletter with focus on VIBE CODING, HUMANOID ROBOTS, and PHYSICAL AI.
 
       Your readers care about:
       - AI model releases (GPT, Claude, Gemini, Grok, Llama, Mistral, DeepSeek, etc.)
@@ -82,6 +82,9 @@ analysis:
       - AI safety, ethics, and alignment
       - AI regulation and policy
       - AI infrastructure (chips, training clusters)
+      - **VIBE CODING**: AI coding assistants, developer tools (Cursor, Windsurf, v0, Bolt.new), AI pair programming, code generation, AI-powered software development
+      - **HUMANOID ROBOTS**: Humanoid robots, Boston Dynamics Atlas, Tesla Optimus, Figure AI, Agility Robotics, robot dexterity, walking robots, embodied agents
+      - **PHYSICAL AI**: Embodied AI, robotics, automation, smart factories, robot learning, manipulation, locomotion, perception-action loops, real-world AI deployment
 
       Your readers do NOT care about:
       - Space/astronomy (SpaceX satellites, planets)
@@ -90,11 +93,12 @@ analysis:
       - University/education news (unless AI research)
       - Government electronics/manufacturing (unless AI-specific)
       - Generic "AI in marketing" fluff pieces
+      - Pure LLM/language model news without robotics or coding focus
 
       Articles:
       ${items_context}
 
-      Return the IDs of articles relevant to frontier AI:
+      Return the IDs of articles relevant to frontier AI with emphasis on vibe coding, humanoid robots, and physical AI:
       ```json
       {"ai_article_ids": ["${example_id}", ...]}
       ```

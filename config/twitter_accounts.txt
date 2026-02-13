@@ -2,6 +2,16 @@
 # Verified via TwitterAPI.io on 2026-01-05
 # Updated 2026-01-08 with additional accounts
 
+# ===== Robotics & Physical AI Accounts =====
+elonmusk
+BostonDynamics
+FigureAI
+AgilityRobotics
+deepmind_robotics
+TeslaAI
+ParkwayVC
+JeffBridges_AI
+
 # ===== AI Lab Leaders & Executives =====
 sama
 demishassabis
