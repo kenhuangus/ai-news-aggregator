@@ -43,7 +43,33 @@
 						>
 							<path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
 						</svg>
-						<span class="hidden sm:inline">Home</span>
+						<span class="hidden sm:inline">AI News</span>
+					</a>
+				</li>
+
+				<!-- Vibe Coding - Featured Report -->
+				<li>
+					<a
+						href={date ? `/data/${date}/reports/gartner-vibe-coding.html` : '#'}
+						class="nav-link whitespace-nowrap text-blue-600 dark:text-blue-400 {!date ? 'opacity-50 pointer-events-none' : ''}"
+						aria-disabled={!date}
+					>
+						<span class="w-2 h-2 rounded-full inline-block mr-1 bg-blue-500"></span>
+						<span class="sm:hidden">Vibe Coding</span>
+						<span class="hidden sm:inline">Vibe Coding</span>
+					</a>
+				</li>
+
+				<!-- Humanoid Robot - Featured Report -->
+				<li>
+					<a
+						href={date ? `/data/${date}/reports/gartner-humanoid-robot.html` : '#'}
+						class="nav-link whitespace-nowrap text-emerald-600 dark:text-emerald-400 {!date ? 'opacity-50 pointer-events-none' : ''}"
+						aria-disabled={!date}
+					>
+						<span class="w-2 h-2 rounded-full inline-block mr-1 bg-emerald-500"></span>
+						<span class="sm:hidden">Humanoid</span>
+						<span class="hidden sm:inline">Humanoid Robot</span>
 					</a>
 				</li>
 

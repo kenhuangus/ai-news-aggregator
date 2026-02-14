@@ -14,7 +14,7 @@
 		</h2>
 		<div class="prose dark:prose-invert max-w-none text-trend-gray-600 dark:text-trend-gray-400">
 			<p>
-				<strong>AATF AI News Aggregator</strong> delivers daily briefings on AI/ML developments,
+				<strong>Top News in Agentic AI</strong> delivers daily briefings on AI/ML developments,
 				helping you stay current with the fast-moving world of artificial intelligence.
 			</p>
 			<p>

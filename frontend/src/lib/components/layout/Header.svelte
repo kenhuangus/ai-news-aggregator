@@ -20,7 +20,7 @@
 						class="w-12 h-12 rounded-full bg-white p-0.5"
 					/>
 					<div>
-						<h1 class="text-2xl font-bold tracking-tight">AATF AI News Aggregator</h1>
+					<h1 class="text-2xl font-bold tracking-tight">Top News in Agentic AI</h1>
 						<p class="text-sm text-white/80">
 							Powered by Claude Opus 4.6
 							<span class="new-badge">NEW</span>

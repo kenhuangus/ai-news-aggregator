@@ -4,8 +4,9 @@ services:
   ai-news-aggregator:
     build: .
     container_name: ai-news-aggregator
+    # Bind to localhost only - not exposed to internet
     ports:
-      - "7100:80"
+      - "127.0.0.1:7100:80"
     volumes:
       - ./config:/app/config
       - ./data:/app/data
@@ -21,9 +22,9 @@ services:
       # Twitter API (optional - skip Twitter collection if not set)
       - TWITTERAPI_IO_KEY=${TWITTERAPI_IO_KEY:-}
 
-      # Collection Settings
-      - ENABLE_CRON=${ENABLE_CRON:-false}
-      - COLLECTION_SCHEDULE=${COLLECTION_SCHEDULE:-0 6 * * *}
+      # Collection Settings - Run at 11 PM daily
+      - ENABLE_CRON=true
+      - COLLECTION_SCHEDULE=0 23 * * *
       - LOOKBACK_HOURS=${LOOKBACK_HOURS:-24}
       - TARGET_DATE=${TARGET_DATE:-}
 

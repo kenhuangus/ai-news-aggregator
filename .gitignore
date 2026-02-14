@@ -2,6 +2,7 @@
 .env
 .env.backup*
 !.env.example
+web/data/
 
 # Provider configuration (contains API keys)
 config/providers.yaml

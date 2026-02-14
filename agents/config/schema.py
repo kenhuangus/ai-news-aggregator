@@ -66,34 +66,45 @@ class LLMProviderConfig(BaseModel):
 class ImageProviderConfig(BaseModel):
     """Configuration for image generation provider (optional).
 
-    Supports two modes:
+    Supports three modes:
     - native: Uses google-genai SDK directly (recommended for Google API keys)
     - openai-compatible: Uses REST chat/completions format (for LiteLLM proxies)
+    - cloudflare-workers: Uses simple GET-based Cloudflare Workers API
 
     Attributes:
-        mode: API mode - 'native' for google-genai SDK, 'openai-compatible' for REST
-        api_key: API key for image generation service
-        endpoint: API endpoint URL (required for openai-compatible mode only)
-        model: Model name for image generation
+        mode: API mode - 'native', 'openai-compatible', or 'cloudflare-workers'
+        api_key: API key for image generation service (optional for cloudflare-workers)
+        endpoint: API endpoint URL (required for openai-compatible and cloudflare-workers modes)
+        model: Model name for image generation (not used for cloudflare-workers)
     """
-    mode: Literal["native", "openai-compatible"] = Field(
+    mode: Literal["native", "openai-compatible", "cloudflare-workers"] = Field(
         default="native",
-        description="API mode: 'native' for google-genai SDK, 'openai-compatible' for REST"
+        description="API mode: 'native' for google-genai SDK, 'openai-compatible' for REST, 'cloudflare-workers' for simple GET API"
     )
-    api_key: str = Field(..., description="API key for image generation")
+    api_key: Optional[str] = Field(
+        default=None,
+        description="API key for image generation (optional for cloudflare-workers mode)"
+    )
     endpoint: Optional[str] = Field(
         default=None,
-        description="API endpoint URL (required for openai-compatible mode)"
+        description="API endpoint URL (required for openai-compatible and cloudflare-workers modes)"
     )
     model: str = Field(
         default="gemini-3-pro-image-preview",
-        description="Model name for image generation"
+        description="Model name for image generation (not used for cloudflare-workers)"
     )
 
     @field_validator('api_key')
     @classmethod
-    def validate_api_key(cls, v: str) -> str:
-        """Validate image API key is configured and resolved."""
+    def validate_api_key(cls, v: Optional[str], info) -> Optional[str]:
+        """Validate image API key is configured and resolved (skip for cloudflare-workers)."""
+        # Get mode from the validation context
+        mode = info.data.get('mode', 'native')
+        
+        # cloudflare-workers mode doesn't require API key
+        if mode == "cloudflare-workers":
+            return v
+            
         if not v or v == "your-image-api-key":
             raise ValueError(
                 "Image API key not configured. "
@@ -108,11 +119,16 @@ class ImageProviderConfig(BaseModel):
 
     @model_validator(mode='after')
     def validate_endpoint_for_mode(self) -> 'ImageProviderConfig':
-        """Validate endpoint is provided for openai-compatible mode."""
+        """Validate endpoint is provided for openai-compatible and cloudflare-workers modes."""
         if self.mode == "openai-compatible" and not self.endpoint:
             raise ValueError(
                 "endpoint is required when mode is 'openai-compatible'. "
                 "Provide your proxy's image generation endpoint URL."
+            )
+        if self.mode == "cloudflare-workers" and not self.endpoint:
+            raise ValueError(
+                "endpoint is required when mode is 'cloudflare-workers'. "
+                "Provide your Cloudflare Workers endpoint URL."
             )
         return self
 

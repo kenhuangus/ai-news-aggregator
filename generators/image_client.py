@@ -276,6 +276,81 @@ class OpenAICompatibleClient(BaseImageClient):
         )
 
 
+class CloudflareWorkersClient(BaseImageClient):
+    """
+    Image client using Cloudflare Workers text-to-image API.
+    
+    Simple GET-based API that returns raw image data.
+    """
+
+    def __init__(
+        self,
+        endpoint: str,
+        timeout: float = 180.0
+    ):
+        """
+        Initialize Cloudflare Workers client.
+
+        Args:
+            endpoint: Cloudflare Workers endpoint URL (e.g., https://your-worker.workers.dev)
+            timeout: Request timeout in seconds
+        """
+        self.endpoint = endpoint.rstrip('/')
+        self.timeout = timeout
+        logger.info(f"CloudflareWorkersClient initialized with endpoint={self.endpoint}")
+
+    async def generate(
+        self,
+        prompt: str,
+        reference_image: Optional[bytes] = None,
+        aspect_ratio: str = "21:9",
+        image_size: str = "2K"
+    ) -> ImageResponse:
+        """
+        Generate image using Cloudflare Workers API.
+        
+        Note: reference_image, aspect_ratio, and image_size are not supported 
+        by simple GET-based Cloudflare Workers API.
+        """
+        # URL encode the prompt
+        import urllib.parse
+        encoded_prompt = urllib.parse.quote(prompt)
+        url = f"{self.endpoint}/?prompt={encoded_prompt}"
+
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(url)
+                response.raise_for_status()
+                
+                # Check content type
+                content_type = response.headers.get("content-type", "")
+                if "image" not in content_type:
+                    raise RuntimeError(
+                        f"Expected image response from Cloudflare Workers, got: {content_type}"
+                    )
+                
+                return ImageResponse(
+                    image_data=response.content,
+                    mime_type=content_type
+                )
+
+        except httpx.TimeoutException:
+            error_msg = f"Image generation timed out after {self.timeout}s"
+            logger.error(error_msg)
+            raise RuntimeError(error_msg)
+        except httpx.HTTPStatusError as e:
+            error_msg = (
+                f"Cloudflare Workers API error (status={e.response.status_code}): "
+                f"{e.response.text[:500]}"
+            )
+            logger.error(error_msg)
+            raise RuntimeError(error_msg)
+        except httpx.RequestError as e:
+            error_msg = f"Image generation request failed: {e}"
+            logger.error(error_msg)
+            raise RuntimeError(error_msg)
+
+
 class ImageClient:
     """
     Factory class for creating image clients based on configuration.
@@ -296,6 +371,7 @@ class ImageClient:
         Returns:
             NativeGeminiClient for native mode
             OpenAICompatibleClient for openai-compatible mode
+            CloudflareWorkersClient for cloudflare-workers mode
 
         Raises:
             ValueError: If mode is unknown
@@ -311,8 +387,12 @@ class ImageClient:
                 endpoint=config.endpoint,  # Already validated by schema
                 model=config.model
             )
+        elif config.mode == "cloudflare-workers":
+            return CloudflareWorkersClient(
+                endpoint=config.endpoint,
+            )
         else:
             raise ValueError(
                 f"Unknown image mode: {config.mode}. "
-                f"Expected 'native' or 'openai-compatible'."
+                f"Expected 'native', 'openai-compatible', or 'cloudflare-workers'."
             )

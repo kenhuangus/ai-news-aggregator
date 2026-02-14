@@ -12,7 +12,7 @@
 					class="w-8 h-8 rounded-full"
 				/>
 				<div>
-					<p class="font-medium">AATF AI News Aggregator</p>
+					<p class="font-medium">Top News in Agentic AI</p>
 					<p class="text-sm text-trend-gray-400">
 						Powered by Claude Opus 4.6
 					</p>

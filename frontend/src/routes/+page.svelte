@@ -150,9 +150,9 @@
 
 <svelte:head>
 	{#if categoryParam && config}
-		<title>{config.title} - {dateParam} | AATF AI News Aggregator</title>
+		<title>{config.title} - {dateParam} | Top News in Agentic AI</title>
 	{:else}
-		<title>AATF AI News Aggregator</title>
+		<title>Top News in Agentic AI</title>
 	{/if}
 </svelte:head>
 
@@ -295,19 +295,131 @@
 			</div>
 		</section>
 
-		<!-- Top Topics -->
-		{#if summary.top_topics && summary.top_topics.length > 0}
-			<section class="mb-12">
-				<h2 class="text-xl font-bold text-trend-gray-800 dark:text-trend-gray-100 mb-6">
-					Top Topics Today
-				</h2>
-				<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-					{#each summary.top_topics as topic}
-						<TopicCard {topic} />
-					{/each}
-				</div>
-			</section>
-		{/if}
+	<!-- Gartner Reports Tables -->
+	<section class="mb-12">
+		<h2 class="text-xl font-bold text-trend-gray-800 dark:text-trend-gray-100 mb-6">
+			Featured Research
+		</h2>
+		
+		<!-- Vibe Coding Table -->
+		<div class="card mb-8">
+			<h3 class="text-lg font-semibold text-trend-gray-800 dark:text-trend-gray-100 mb-4 flex items-center gap-2">
+				<span class="w-2 h-2 rounded-full bg-blue-500"></span>
+				AI Developer Tools & Vibe Coding
+			</h3>
+			<div class="overflow-x-auto">
+				<table class="w-full text-sm">
+					<thead>
+						<tr class="border-b border-trend-gray-200 dark:border-trend-gray-700">
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Source</th>
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Title</th>
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Category</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">MarkTechPost</td>
+							<td class="py-3 px-2"><a href="https://www.marktechpost.com/2026/02/12/is-this-agi-googles-gemini-3-deep-think-shatters-humanitys-last-exam-and-hits-84-6-on-arc-agi-2-performance-today/" target="_blank" class="text-trend-red hover:underline">Is This AGI? Google's Gemini 3 Deep Think Shatters Humanity's Last Exam</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">Models</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">Ars Technica</td>
+							<td class="py-3 px-2"><a href="https://arstechnica.com/ai/2026/02/openai-sidesteps-nvidia-with-unusually-fast-coding-model-on-plate-sized-chips/" target="_blank" class="text-trend-red hover:underline">OpenAI sidesteps Nvidia with fast coding model on Cerebras</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">Hardware</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">MarkTechPost</td>
+							<td class="py-3 px-2"><a href="https://www.marktechpost.com/2026/02/12/openai-releases-a-research-preview-of-gpt-5-3-codex-spark-a-15x-faster-ai-coding-model-delivering-over-1000-tokens-per-second-on-cerebras-hardware/" target="_blank" class="text-trend-red hover:underline">OpenAI Releases GPT-5.3-Codex-Spark: 1000+ Tokens/sec</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">Coding</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">Latent.Space</td>
+							<td class="py-3 px-2"><a href="https://www.latent.space/p/ainews-zai-glm-5-new-sota-open-weights" target="_blank" class="text-trend-red hover:underline">Z.ai GLM-5: New SOTA Open Weights LLM (744B params)</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">Models</span></td>
+						</tr>
+						<tr class="hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">arXiv</td>
+							<td class="py-3 px-2"><a href="http://arxiv.org/abs/2602.12144" target="_blank" class="text-trend-red hover:underline">On the Adoption of AI Coding Agents in Open-source Android/iOS</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">Research</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="mt-4 pt-4 border-t border-trend-gray-200 dark:border-trend-gray-700">
+				<a href="/data/2026-02-13/reports/gartner-vibe-coding.html" target="_blank" class="text-sm font-medium text-trend-red hover:text-guardian-red transition-colors">
+					View Full Gartner Report →
+				</a>
+			</div>
+		</div>
+		
+		<!-- Humanoid Robot / Physical AI Table -->
+		<div class="card">
+			<h3 class="text-lg font-semibold text-trend-gray-800 dark:text-trend-gray-100 mb-4 flex items-center gap-2">
+				<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+				Humanoid Robotics & Physical AI
+			</h3>
+			<div class="overflow-x-auto">
+				<table class="w-full text-sm">
+					<thead>
+						<tr class="border-b border-trend-gray-200 dark:border-trend-gray-700">
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Source</th>
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Title</th>
+							<th class="text-left py-3 px-2 font-semibold text-trend-gray-600 dark:text-trend-gray-300">Category</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">arXiv</td>
+							<td class="py-3 px-2"><a href="http://arxiv.org/abs/2602.11929" target="_blank" class="text-trend-red hover:underline">FAST: General Humanoid Whole-Body Control via Pretraining</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">Control</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">arXiv</td>
+							<td class="py-3 px-2"><a href="http://arxiv.org/abs/2602.11337" target="_blank" class="text-trend-red hover:underline">MolmoSpaces: Large-Scale Open Ecosystem for Robot Navigation</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">Ecosystem</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">Reddit</td>
+							<td class="py-3 px-2"><a href="https://reddit.com/r/singularity/comments/1r2uo9w/weaves_isaac_the_folding_clothes_robot_is/" target="_blank" class="text-trend-red hover:underline">Weaves Isaac: AI Clothes Folding Robot at $8K</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">Product</span></td>
+						</tr>
+						<tr class="border-b border-trend-gray-100 dark:border-trend-gray-800 hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">arXiv</td>
+							<td class="py-3 px-2"><a href="http://arxiv.org/abs/2602.12281" target="_blank" class="text-trend-red hover:underline">Scaling Verification for Vision-Language-Action Alignment</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">Research</span></td>
+						</tr>
+						<tr class="hover:bg-trend-gray-50 dark:hover:bg-trend-gray-800/50">
+							<td class="py-3 px-2 text-trend-gray-500">arXiv</td>
+							<td class="py-3 px-2"><a href="http://arxiv.org/abs/2602.12063" target="_blank" class="text-trend-red hover:underline">VLAW: Iterative Co-Improvement of VLA Policy and World Model</a></td>
+							<td class="py-3 px-2"><span class="px-2 py-1 rounded-full text-xs bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300">VLA</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="mt-4 pt-4 border-t border-trend-gray-200 dark:border-trend-gray-700">
+				<a href="/data/2026-02-13/reports/gartner-humanoid-robot.html" target="_blank" class="text-sm font-medium text-trend-red hover:text-guardian-red transition-colors mr-4">
+					View Humanoid Robotics Report →
+				</a>
+				<a href="/data/2026-02-13/reports/gartner-physical-ai.html" target="_blank" class="text-sm font-medium text-trend-red hover:text-guardian-red transition-colors">
+					View Physical AI Report →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Top Topics -->
+	{#if summary.top_topics && summary.top_topics.length > 0}
+		<section class="mb-12">
+			<h2 class="text-xl font-bold text-trend-gray-800 dark:text-trend-gray-100 mb-6">
+				Top Topics Today
+			</h2>
+			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+				{#each summary.top_topics as topic}
+					<TopicCard {topic} />
+				{/each}
+			</div>
+		</section>
+	{/if}
 
 		<!-- Category Sections -->
 		{#each validCategories as category}
